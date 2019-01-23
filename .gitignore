@@ -1,5 +1,6 @@
 datasets/*
 .ipynb_checkpoints/*
+.DS_Store
 .vscode/*
 .RData
 .Rhistory
