@@ -1,0 +1,15 @@
+datasets/*
+.ipynb_checkpoints/*
+.vscode/*
+.RData
+.Rhistory
+ar_models/.ipynb_checkpoints/*
+data_cleaning/.ipynb_checkpoints/*
+phase_1/.ipynb_checkpoints/*
+phase_2/.ipynb_checkpoints/*
+
+
+R_scripts/.ipynb_checkpoints/*
+
+wavelet_functions/__pycache__/*
+wavelet_functions/.vscode/*
