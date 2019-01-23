@@ -1,5 +1,7 @@
 import numpy as np
-
+import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.rcParams['figure.figsize'] = (16, 3)
 
 def dwt(input_series, filter_length=2, 
                      scaling_filter_coefficients=[1/(np.power(2, 1/2)), 1/(np.power(2, 1/2))],
@@ -117,3 +119,35 @@ def imodwt(W, V, filter_length=2, j=1,
                 k = k%N
             v_output[t] += W[k]*htilda[n] + V[k]*gtilda[n]
     return v_output
+
+def mra(input_series, num_decompositions, h, g, L):
+    """
+    Perform mra using modwt
+    Args:
+        input_series: the series to be decomposed
+        num_decompositions: The number of times the modwt will be performed
+        h: The coeffs of the high pass filter of the wavelet
+        g: The coeffs of the low pass filter of the wavlelet
+        L: The length of the wavelet
+    
+    Returns:
+        Void
+    """
+    plt.plot(input_series)
+    plt.title("Original Series")
+    plt.show()
+
+    cA = input_series
+    for i in range(num_decompositions):
+        cD, cA = modwt(cA, j=i+1, filter_length=L, h=h, g=g)
+        cD = imodwt(cD, [], j = i+1, filter_length=L, h=h, g=g)
+        for j in range(i, 0, -1):
+            cD = imodwt([], cD, j = j, filter_length=L, h=h, g=g)
+        plt.title("D"+str(i+1))
+        plt.plot(cD)
+        plt.show()
+    for j in range(num_decompositions, 0, -1):
+        cA = imodwt([], cA, j=j, g=g, h=h, filter_length = L)
+    plt.title("S"+str(num_decompositions))
+    plt.plot(cA)
+    plt.show()
